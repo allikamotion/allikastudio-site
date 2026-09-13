@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (p !== undefined) p.catch(function(){});
   }
 
-  document.querySelectorAll('[data-hover-video]').forEach(function(wrap){
+  document.querySelectorAll('[data-hover-video], [data-autoplay-video]').forEach(function(wrap){
     var video = wrap.querySelector('video');
     if (!video) return;
     var link = wrap.closest('a');
@@ -310,4 +310,42 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (err) { /* if URL parsing fails for any reason, fall back to normal navigation */ }
   });
+})();
+
+// ---------- project pages: video plays by itself while it is on screen ----------
+// Cards on the home page and the project list still play on hover; inside a
+// project the videos start on their own, because that is the point of opening
+// the page. Off-screen videos stay paused so a page with five clips does not
+// download all of them at once.
+(function(){
+  var wraps = document.querySelectorAll('[data-autoplay-video]');
+  if (!wraps.length) return;
+
+  var play  = function(v){ var p = v.play(); if (p !== undefined) p.catch(function(){}); };
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Someone who asked their system to reduce motion should not get five clips
+  // moving at once -- fall back to the hover behaviour for them.
+  if (reduce) {
+    wraps.forEach(function(wrap){
+      var v = wrap.querySelector('video'); if (!v) return;
+      wrap.addEventListener('mouseenter', function(){ play(v); });
+      wrap.addEventListener('mouseleave', function(){ v.pause(); try { v.currentTime = 0; } catch (e) {} });
+    });
+    return;
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    wraps.forEach(function(wrap){ var v = wrap.querySelector('video'); if (v) play(v); });
+    return;
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var v = entry.target.querySelector('video');
+      if (!v) return;
+      if (entry.isIntersecting) play(v); else v.pause();
+    });
+  }, { threshold: 0.25 });
+  wraps.forEach(function(wrap){ io.observe(wrap); });
 })();
