@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allika Studio — App &amp; Video Design</title>
+<meta name="description" content="Allika Studio — motion design, video editing, and app development, based in Tallinn.">
+<link rel="stylesheet" href="style.css?v=48">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+</head>
+<body class="grain">
+
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="Allika Studio"><video class="brand-mark" muted loop playsinline preload="auto" poster="assets/img/logo-allika-studio-poster.jpg"><source src="logo-allika-studio.mp4" type="video/mp4"></video><span class="brand-text">Allika Studio</span></a>
+  <nav class="site-nav">
+    <a href="projects.html">Projects</a>
+    <a href="index.html#services">Services</a>
+    <a href="explorations.html">Benzina App</a>
+  </nav>
+</header>
+<script>
+  // Landing directly on #services via a full page load (a nav link from
+  // another page, or a plain reload while already there): resolve the
+  // header logo to text immediately via plain JS, before anything else
+  // runs. A CSS :target-based rule can't do this reliably here because
+  // the #services element lives far down the document and isn't parsed
+  // yet when the header above it first paints. The video no longer has
+  // the "autoplay" attribute (removed above) specifically so there is no
+  // separate, uncontrollable native autoplay race to worry about — this
+  // script is now the only thing that ever starts it playing.
+  (function(){
+    var header = document.querySelector('.site-header');
+    var video = header && header.querySelector('.brand-mark');
+    if (location.hash === '#services') {
+      header.classList.add('scrolled');
+    } else if (video) {
+      var p = video.play();
+      if (p !== undefined) p.catch(function(){});
+    }
+  })();
+</script>
+<main class="wrap">
+
+  <section class="hero">
+    <div class="hero-bg" data-reveal style="background-image:url('BG.png')"></div>
+    <div class="hero-row">
+      <h1>
+        <span class="line1" data-reveal>allika studio</span>
+        <span class="line2" data-reveal>app &amp;</span>
+        <span class="line2" data-reveal>video design</span>
+      </h1>
+      <div class="tags" data-reveal>
+        <span class="tag">Motion</span>
+        <span class="tag">Illustration</span>
+        <span class="tag">Video editing</span>
+        <span class="tag">Social &amp; ad video</span>
+        <span class="tag">Graphic design</span>
+        <span class="tag">App development</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 data-reveal>Selected work</h2>
+      <a class="pill-btn" href="projects.html" data-reveal>see our other work </a>
+    </div>
+    <div class="work-grid">
+      <a class="work-card" href="projects-benzina-fuel-prices-map.html" data-reveal>
+        <div class="work-card-media" style="background-image:url('benzina-hero-phone.webp'); background-size:contain; background-repeat:no-repeat; background-color:var(--bg-paper);"></div>
+        <div class="work-card-meta">
+          <h3>The Red Thing</h3>
+          <span class="cat">App</span>
+        </div>
+      </a>
+      <a class="work-card" href="projects-motion.html" data-reveal>
+        <div class="work-card-media" data-hover-video style="background-image:url('allika-studio-1-poster.jpg')">
+          <video muted loop playsinline preload="none" poster="assets/img/allika-studio-1-poster.jpg"><source src="allika-studio-1.mp4?v=2" type="video/mp4"></video>
+        </div>
+        <div class="work-card-meta">
+          <h3>Allika Studio</h3>
+          <span class="cat">Visual identity</span>
+        </div>
+      </a>
+      <a class="work-card" href="projects-infur.html" data-reveal>
+        <div class="work-card-media" data-hover-video style="background-image:url('infur-web.jpg')"><video muted loop playsinline preload="none" poster="assets/img/infur-web.jpg"><source src="infur-1.mp4" type="video/mp4"></video></div>
+        <div class="work-card-meta">
+          <h3>Infur</h3>
+          <span class="cat">Brand identity</span>
+        </div>
+      </a>
+      <a class="work-card" href="projects-historical-intro.html" data-reveal>
+        <div class="work-card-media" data-hover-video style="background-image:url('storytelling-1-poster.jpg');">
+          <video muted loop playsinline preload="none" poster="assets/img/storytelling-1-poster.jpg"><source src="storytelling-1.mp4?v=3" type="video/mp4"></video>
+        </div>
+        <div class="work-card-meta">
+          <h3>StoryTelling</h3>
+          <span class="cat">Visual identity</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="services-grid">
+      <div class="services-intro">
+        <h2 data-reveal>Services</h2>
+        <p class="about-copy" data-reveal>
+          We make brands move — through motion, video, and the apps they live in.
+          Every project gets the same hands-on care, from a single animated detail
+          to a complete product.
+        </p>
+      </div>
+      <div class="services-list">
+        <div class="service-row" data-reveal>
+          <div class="service-row-head">
+            <span class="num">1</span>
+            <h3>Motion design — identity &amp; type</h3>
+          </div>
+          <ul class="service-sub">
+            <li>logo animation &amp; brand marks</li>
+            <li>kinetic typography &amp; titles</li>
+            <li>intro &amp; outro branding</li>
+          </ul>
+        </div>
+        <div class="service-row" data-reveal>
+          <div class="service-row-head">
+            <span class="num">2</span>
+            <h3>Motion design — storytelling &amp; illustration</h3>
+          </div>
+          <ul class="service-sub">
+            <li>hand-drawn illustration &amp; animation</li>
+            <li>explainer &amp; narrative pieces</li>
+            <li>2D animation</li>
+          </ul>
+        </div>
+        <div class="service-row" data-reveal>
+          <div class="service-row-head">
+            <span class="num">3</span>
+            <h3>Video editing &amp; color</h3>
+          </div>
+          <ul class="service-sub">
+            <li>brand &amp; case-study video</li>
+            <li>color grading</li>
+            <li>pacing &amp; footage editing</li>
+          </ul>
+        </div>
+        <div class="service-row" data-reveal>
+          <div class="service-row-head">
+            <span class="num">4</span>
+            <h3>Social &amp; ad video</h3>
+          </div>
+          <ul class="service-sub">
+            <li>reels, shorts &amp; platform-native cuts</li>
+            <li>ad creatives for social campaigns</li>
+            <li>square &amp; vertical formats for every platform</li>
+          </ul>
+        </div>
+        <div class="service-row" data-reveal>
+          <div class="service-row-head">
+            <span class="num">5</span>
+            <h3>Tools &amp; pipeline</h3>
+          </div>
+          <ul class="service-sub">
+            <li>After Effects &amp; Premiere Pro</li>
+            <li>Photoshop &amp; Illustrator for design assets</li>
+            <li>AI-assisted, always finished by hand</li>
+          </ul>
+        </div>
+        <div class="service-row" data-reveal>
+          <div class="service-row-head">
+            <span class="num">6</span>
+            <h3>App development</h3>
+          </div>
+          <ul class="service-sub">
+            <li>concept to clickable prototype</li>
+            <li>MVP build &amp; testing</li>
+            <li>launch &amp; post-launch iteration</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="marquee-section" data-reveal>
+    <div class="marquee">
+      <div class="marquee-track">
+        <span class="marquee-item">Build trust</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Look the part</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Move with clarity</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Stand out</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Get taken seriously</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Individual approach</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Frame-perfect motion</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Motion that sells</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Video that converts</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Frame by frame</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Edit with precision</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Detail by detail</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Brand that sticks</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Scroll-stopping visuals</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">App design, done right</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">From sketch to screen</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Build trust</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Look the part</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Move with clarity</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Stand out</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Get taken seriously</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Individual approach</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Frame-perfect motion</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Motion that sells</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Video that converts</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Frame by frame</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Edit with precision</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Detail by detail</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Brand that sticks</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">Scroll-stopping visuals</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">App design, done right</span><span class="marquee-star">&#10022;</span>
+        <span class="marquee-item">From sketch to screen</span><span class="marquee-star">&#10022;</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2 data-reveal>The process</h2></div>
+    <div class="process-grid">
+      <div class="process-card" data-reveal>
+        <span class="eyebrow">App development</span>
+        <h3>App</h3>
+        <p>From concept to a working product — prototyping, building, and testing an app people actually use, like Benzina.</p>
+        <div class="art" style="background-image:url('benzina-hero-phone.webp'); background-size:contain; background-repeat:no-repeat; background-color:var(--bg-paper);"></div>
+      </div>
+      <div class="process-card" data-reveal>
+        <span class="eyebrow">Motion design</span>
+        <h3>Motion Design</h3>
+        <p>Logo animation, kinetic type, hand-drawn illustration brought to life — every motion detail built to hold up on a second look.</p>
+        <div class="art" data-hover-video style="background-image:url('allika-studio-1-poster.jpg'); background-size:contain; background-repeat:no-repeat; background-color:var(--bg-paper);">
+          <video muted loop playsinline preload="none" poster="assets/img/allika-studio-1-poster.jpg" style="object-fit:contain; background:var(--bg-paper);"><source src="allika-studio-1.mp4?v=2" type="video/mp4"></video>
+        </div>
+      </div>
+      <div class="process-card" data-reveal>
+        <span class="eyebrow">Video editing</span>
+        <h3>Video Editor</h3>
+        <p>Color, pacing, and cuts built for the platform they'll live on — from brand case studies to reels and ad creative.</p>
+        <div class="art" data-hover-video style="background-image:url('infur-web.jpg'); background-size:contain; background-repeat:no-repeat; background-color:var(--bg-paper);">
+          <video muted loop playsinline preload="none" poster="assets/img/infur-web.jpg" style="object-fit:contain; background:var(--bg-paper);"><source src="infur-1.mp4" type="video/mp4"></video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="row">
+      <button class="top-link" data-to-top>Back to top ↑</button>
+      <span data-clock>Tallinn — [GMT +3:00]</span>
+    </div>
+    <div class="bottom">
+      <span>2026. Allika Studio OÜ</span>
+      <span>Tallinn, Estonia</span>
+      <span class="footer-mail"><a href="mailto:hello@allikastudio.com">hello@allikastudio.com</a></span><span class="legal-links"><a href="support.html">Support</a> · <a href="legal-terms-of-use.html">Terms of Use</a> · <a href="legal-privacy-policy.html">Privacy Policy</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js?v=48"></script>
+</body>
+</html>
