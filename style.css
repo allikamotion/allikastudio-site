@@ -295,6 +295,14 @@ h1,h2,h3,p{ margin:0; }
   .hero-phone img{ max-width: 190px; margin:0 auto; }
 }
 
+/* ---------- language switcher (EN / ET) ---------- */
+.lang-switch{ display:inline-flex; align-items:center; gap:.35rem; margin-left:.3rem; }
+.lang-switch a{ opacity:.4; transition: opacity .2s var(--ease); }
+.lang-switch a:hover{ opacity:.75; }
+.lang-switch a.is-active{ opacity:1; }
+.lang-switch span{ opacity:.22; }
+@media (max-width: 640px){ .lang-switch{ margin-left:.1rem; } }
+
 /* ---------- legal documents (site + Benzina app) ---------- */
 .legal-doc{ max-width: 72ch; }
 .legal-doc h2{
@@ -430,11 +438,48 @@ body.lightbox-open{ overflow:hidden; }
   padding:2.5rem;
 }
 .video-lightbox.is-open{ opacity:1; visibility:visible; }
+/* Панель управления лежит ПОД видео, а не поверх него: родная панель браузера
+   затемняет нижнюю часть кадра при наведении, а работу надо показывать без
+   искажений цвета. Ширина панели подстраивается под ширину кадра. */
+.lb-stage{ display:flex; flex-direction:column; gap:.7rem; max-width:92vw; }
 .video-lightbox-player{
-  max-width:92vw; max-height:88vh;
+  display:block; margin:0 auto;
+  max-width:92vw; max-height:calc(88vh - 64px);
+  width:auto; height:auto;
   border-radius:12px;
   background:#000;
   box-shadow:0 20px 60px rgba(0,0,0,.5);
+  cursor:pointer;
+}
+.lb-bar{
+  display:flex; align-items:center; gap:.8rem;
+  width:100%; color:#fff;
+  font-family: var(--font-mono); font-size:.75rem;
+}
+.lb-btn{
+  flex:none; width:32px; height:32px; padding:0;
+  display:flex; align-items:center; justify-content:center;
+  border:none; border-radius:50%; cursor:pointer;
+  background:rgba(255,255,255,.12); color:#fff;
+  transition:background .2s ease;
+}
+.lb-btn:hover{ background:rgba(255,255,255,.24); }
+.lb-btn svg{ width:16px; height:16px; fill:currentColor; }
+.lb-time{ flex:none; opacity:.7; letter-spacing:.02em; white-space:nowrap; }
+.lb-seek{
+  flex:1 1 auto; min-width:60px; height:4px; padding:0; margin:0;
+  -webkit-appearance:none; appearance:none; cursor:pointer;
+  background:rgba(255,255,255,.22); border-radius:2px;
+}
+.lb-seek::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none;
+  width:12px; height:12px; border-radius:50%; background:#fff; border:none; cursor:pointer;
+}
+.lb-seek::-moz-range-thumb{
+  width:12px; height:12px; border-radius:50%; background:#fff; border:none; cursor:pointer;
+}
+@media (max-width: 640px){
+  .lb-time{ display:none; }
 }
 .video-lightbox-close{
   position:absolute; top:1.25rem; right:1.5rem;

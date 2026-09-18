@@ -138,12 +138,77 @@ document.addEventListener('DOMContentLoaded', () => {
     lightbox = document.createElement('div');
     lightbox.className = 'video-lightbox';
     lightbox.setAttribute('aria-hidden', 'true');
+    // Родные элементы управления браузера рисуются ПОВЕРХ кадра и при наведении
+    // кладут на нижнюю часть видео тёмную подложку -- у портретного ролика это
+    // заметно меняет вид работы. Поэтому панель своя и находится ПОД видео:
+    // кадр не перекрывается ничем и цвет не искажается.
+    var ICON_PLAY  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+    var ICON_PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+    var ICON_SOUND = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg>';
+    var ICON_MUTED = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9l5 5m0-5l-5 5" stroke="currentColor" stroke-width="2" fill="none"/></svg>';
+
     lightbox.innerHTML =
       '<button type="button" class="video-lightbox-close" aria-label="Close">&times;</button>' +
-      '<video class="video-lightbox-player" controls playsinline></video>';
+      '<div class="lb-stage">' +
+        '<video class="video-lightbox-player" playsinline></video>' +
+        '<div class="lb-bar">' +
+          '<button type="button" class="lb-btn lb-play" aria-label="Play or pause">' + ICON_PAUSE + '</button>' +
+          '<input type="range" class="lb-seek" min="0" max="1000" value="0" step="1" aria-label="Position">' +
+          '<span class="lb-time">0:00 / 0:00</span>' +
+          '<button type="button" class="lb-btn lb-mute" aria-label="Mute or unmute">' + ICON_SOUND + '</button>' +
+        '</div>' +
+      '</div>';
     document.body.appendChild(lightbox);
     lbVideo = lightbox.querySelector('video');
     lbClose = lightbox.querySelector('.video-lightbox-close');
+
+    var btnPlay = lightbox.querySelector('.lb-play');
+    var btnMute = lightbox.querySelector('.lb-mute');
+    var seek    = lightbox.querySelector('.lb-seek');
+    var timeEl  = lightbox.querySelector('.lb-time');
+    var scrubbing = false;
+
+    function fmt(s){
+      if (!isFinite(s)) return '0:00';
+      s = Math.max(0, Math.floor(s));
+      return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2);
+    }
+    function paintTime(){
+      timeEl.textContent = fmt(lbVideo.currentTime) + ' / ' + fmt(lbVideo.duration);
+      if (!scrubbing && lbVideo.duration) {
+        seek.value = Math.round(lbVideo.currentTime / lbVideo.duration * 1000);
+      }
+    }
+    btnPlay.addEventListener('click', function(){
+      if (lbVideo.paused) { var p = lbVideo.play(); if (p !== undefined) p.catch(function(){}); }
+      else lbVideo.pause();
+    });
+    btnMute.addEventListener('click', function(){
+      lbVideo.muted = !lbVideo.muted;
+      btnMute.innerHTML = lbVideo.muted ? ICON_MUTED : ICON_SOUND;
+    });
+    lbVideo.addEventListener('play',  function(){ btnPlay.innerHTML = ICON_PAUSE; });
+    lbVideo.addEventListener('pause', function(){ btnPlay.innerHTML = ICON_PLAY; });
+    lbVideo.addEventListener('timeupdate', paintTime);
+    lbVideo.addEventListener('loadedmetadata', paintTime);
+    lbVideo.addEventListener('click', function(){
+      if (lbVideo.paused) { var p = lbVideo.play(); if (p !== undefined) p.catch(function(){}); }
+      else lbVideo.pause();
+    });
+    seek.addEventListener('input', function(){
+      scrubbing = true;
+      if (lbVideo.duration) lbVideo.currentTime = seek.value / 1000 * lbVideo.duration;
+    });
+    seek.addEventListener('change', function(){ scrubbing = false; });
+    document.addEventListener('keydown', function(e){
+      if (!lightbox.classList.contains('is-open')) return;
+      if (e.key === ' ') { e.preventDefault(); btnPlay.click(); }
+    });
+    lightbox.lbReset = function(){
+      btnMute.innerHTML = ICON_SOUND;
+      seek.value = 0;
+      timeEl.textContent = '0:00 / 0:00';
+    };
 
     function close(){
       lightbox.classList.remove('is-open');
@@ -163,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var src = srcEl ? srcEl.src : video.currentSrc;
     if (!src) return;
     lbVideo.muted = false;
+    if (lightbox.lbReset) lightbox.lbReset();
     lbVideo.src = src;
     lightbox.classList.add('is-open');
     document.body.classList.add('lightbox-open');
@@ -321,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
   var wraps = document.querySelectorAll('[data-autoplay-video]');
   if (!wraps.length) return;
 
-  var play  = function(v){ var p = v.play(); if (p !== undefined) p.catch(function(){}); };
+  var play  = function(v){ var p = v.play(); if (p !== undefined) p.catch(function(){}); return p; };
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Someone who asked their system to reduce motion should not get five clips
@@ -340,11 +406,25 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  // Если браузер автозапуск запретил (Safari с выключенным авто-воспроизведением,
+  // режим энергосбережения), у видео на странице проекта не осталось бы ни одного
+  // способа заиграть -- воспроизведение по наведению отсюда убрано за ненадобностью.
+  // Поэтому на отказ play() возвращаем наведение и касание как запасной вариант.
+  function enableManual(wrap, v){
+    if (wrap.getAttribute('data-manual')) return;
+    wrap.setAttribute('data-manual', '1');
+    wrap.addEventListener('mouseenter', function(){ play(v); });
+    wrap.addEventListener('mouseleave', function(){ v.pause(); });
+    wrap.addEventListener('touchstart', function(){ play(v); }, { passive: true });
+  }
+
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
       var v = entry.target.querySelector('video');
       if (!v) return;
-      if (entry.isIntersecting) play(v); else v.pause();
+      if (!entry.isIntersecting) { v.pause(); return; }
+      var p = v.play();
+      if (p !== undefined) p.catch(function(){ enableManual(entry.target, v); });
     });
   }, { threshold: 0.25 });
   wraps.forEach(function(wrap){ io.observe(wrap); });
