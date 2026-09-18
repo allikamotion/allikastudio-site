@@ -328,13 +328,47 @@ document.addEventListener('DOMContentLoaded', () => {
     header.classList.toggle('scrolled', isScrolled);
     // some browsers pause an off-screen (display:none) video; make sure it
     // resumes once it becomes visible again instead of staying frozen.
-    if (!isScrolled && video) {
-      var p = video.play();
-      if (p !== undefined) p.catch(function(){});
-    }
+    if (!isScrolled) tryPlay();
   }
+
+  // A single play() at load is not enough. Chrome suspends a muted video the
+  // moment the page is not visible — if the page finishes loading in a
+  // background tab or behind another window, the logo is left frozen on its
+  // poster at frame 0 and nothing ever restarts it. The same happens whenever
+  // the browser refuses the call for its own reasons. So: never swallow the
+  // rejection, and keep offering the video a chance to start — when it has
+  // loaded enough data, when the page becomes visible, and, as a guaranteed
+  // last resort, on the visitor's first interaction, which always carries the
+  // user activation a browser can never refuse.
+  function shouldPlay(){
+    return !!video && !header.classList.contains('scrolled') && video.paused;
+  }
+  function tryPlay(){
+    if (!shouldPlay()) return;
+    var p = video.play();
+    if (p !== undefined) p.catch(function(){ /* ещё попробуем по событиям ниже */ });
+  }
+  if (video) {
+    ['loadeddata', 'canplay', 'canplaythrough'].forEach(function(evt){
+      video.addEventListener(evt, tryPlay);
+    });
+    document.addEventListener('visibilitychange', function(){
+      if (!document.hidden) tryPlay();
+    });
+    window.addEventListener('pageshow', tryPlay);
+    window.addEventListener('focus', tryPlay);
+    // Safari counts only a real gesture (click, tap, key) as user activation —
+    // a bare mousemove does not qualify there, so both kinds are listened for:
+    // the cheap ones cover Chrome, the gestures are what finally convince Safari.
+    var kick = function(){ tryPlay(); };
+    ['pointerdown', 'click', 'touchstart', 'keydown', 'wheel', 'mousemove'].forEach(function(evt){
+      window.addEventListener(evt, kick, { passive: true, once: true });
+    });
+  }
+
   header.classList.add('js-ready');
   onScroll();
+  tryPlay();
   window.addEventListener('scroll', onScroll, { passive: true });
   // Clicking a nav link to an anchor lower on the page (e.g. #services)
   // triggers a smooth-scroll that takes a few hundred ms to cross the

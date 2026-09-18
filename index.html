@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Allika Studio — App &amp; Video Design</title>
 <meta name="description" content="Allika Studio — motion design, video editing, and app development, based in Tallinn.">
-<link rel="stylesheet" href="style.css?v=51">
+<link rel="stylesheet" href="style.css?v=53">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -27,7 +27,7 @@
 <body class="grain">
 
 <header class="site-header">
-  <a class="brand" href="index.html" aria-label="Allika Studio"><video class="brand-mark" muted loop playsinline preload="auto" poster="logo-allika-studio-poster.jpg"><source src="logo-allika-studio.mp4" type="video/mp4"></video><span class="brand-text">Allika Studio</span></a>
+  <a class="brand" href="index.html" aria-label="Allika Studio"><video class="brand-mark" autoplay muted loop playsinline preload="auto" poster="logo-allika-studio-poster.jpg"><source src="logo-allika-studio.mp4" type="video/mp4"></video><span class="brand-text">Allika Studio</span></a>
   <nav class="site-nav">
     <a href="projects.html">Projects</a>
     <a href="index.html#services">Services</a>
@@ -51,6 +51,12 @@
     var video = header && header.querySelector('.brand-mark');
     if (location.hash === '#services') {
       header.classList.add('scrolled');
+      // The video carries the "autoplay" attribute (Safari only grants muted
+      // autoplay through the attribute, not through a scripted play()), so
+      // here the attribute has to be taken away again before the browser can
+      // act on it — otherwise the logo would start playing behind the text
+      // logo that this branch is switching to.
+      if (video) { video.removeAttribute('autoplay'); video.pause(); }
     } else if (video) {
       var p = video.play();
       if (p !== undefined) p.catch(function(){});
@@ -284,6 +290,6 @@
   </div>
 </footer>
 
-<script src="main.js?v=51"></script>
+<script src="main.js?v=53"></script>
 </body>
 </html>
