@@ -10,9 +10,6 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <!-- Legal pages must stay readable even with JavaScript switched off:
-       [data-reveal] starts at opacity:0 and is only revealed by main.js. -->
-  <noscript><style>[data-reveal]{opacity:1 !important;transform:none !important;}</style></noscript>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Allika Studio">
   <meta property="og:locale" content="en_US">
@@ -23,6 +20,9 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
+  <!-- Legal pages must stay readable even with JavaScript switched off:
+       [data-reveal] starts at opacity:0 and is only revealed by main.js. -->
+  <noscript><style>[data-reveal]{opacity:1 !important;transform:none !important;}</style></noscript>
 </head>
 <body class="grain">
 <header class="site-header">
@@ -54,35 +54,57 @@
     <div class="legal-doc" data-reveal
          data-legal="privacyPolicy"
          data-legal-src="https://gist.githubusercontent.com/redkiborg/7fb3761e57dd6a2763307f7307ef5b06/raw/changelogIOS">
-      <p>This privacy policy applies to the Benzina app (hereby referred to as "Application") for mobile devices that was created by Allika Studio OÜ (hereby referred to as "Service Provider") as a Free service. This service is intended for use "AS IS".</p>
-      <h2>Information Collection and Use</h2>
-      <p>The Application collects information when you download and use it. This information may include:</p>
-      <ul><li>Your device's Internet Protocol address (e.g. IP address)</li><li>The pages of the Application that you visit, the time and date of your visit, the time spent on those pages</li><li>The time spent on the Application</li><li>The operating system you use on your mobile device</li><li>Device information including device model, manufacturer, screen resolution, iOS version, and unique device identifiers</li></ul>
-      <p>The Application collects your device's location, which helps the Service Provider determine your approximate geographical location and make use of in the following ways:</p>
-      <p>Geolocation Services: The Service Provider utilizes location data to provide features such as personalized content, relevant recommendations, and location-based services.</p>
-      <p>Analytics and Improvements: Aggregated and anonymized location data helps the Service Provider to analyze user behavior, identify trends, and improve the overall performance and functionality of the Application.</p>
-      <p>Third-Party Services: Periodically, the Service Provider may transmit anonymized location data to external services. These services assist them in enhancing the Application and optimizing their offerings.</p>
-      <p>Location data is collected only while the Application is actively in use and is not tracked in the background.</p>
-      <p>The Application uses mathematical algorithms and data modeling to provide its Fuel Price Forecasting feature. This forecast is computed entirely on your device based on historical market trends (sourced from Fuelo) and recent local competitor prices; no personal data or exact user location coordinates are sent to external servers for this feature.</p>
-      <p>Camera Access: The Application may request access to your device's camera to let you scan fuel price boards instead of entering prices manually. Photos taken for this purpose are processed entirely on your device using an on-device, open-source text recognition engine (Tesseract OCR); they are not uploaded, transmitted to, or stored on the Service Provider's servers or any third-party server, and are discarded immediately after the recognized prices are extracted. Camera access is only used when you actively choose the photo-scanning option.</p>
-      <p>For a better experience, while using the Application, the Service Provider may require you to provide us with certain personally identifiable information, including but not limited to:</p>
-      <ul><li>Location Data: GPS coordinates used to find nearby fuel stations and calculate distances.</li><li>Account Data: Google account email, display name, profile photo URL, and unique Google identifier collected upon signing in with Google.</li><li>User-Generated Data: Unlocked icon identifiers, promotional codes entered, default fuel type, and selected search radius.</li><li>Price Submissions: When you submit fuel prices, your unique Google identifier and email are linked to the submission for verification and data integrity purposes.</li><li>Price Reports: When you report an incorrect price, your unique Google identifier is temporarily recorded to prevent duplicate reporting and spam. This record is purged once the price is updated or removed.</li><li>Device Data: Device model, manufacturer, operating system version, screen resolution, and unique device identifiers.</li><li>Technical Data: App preferences including theme, language, currency, icon size, and search radius, stored locally on your device.</li><li>Newsletter Data: If you opt in to our newsletter, your email address and display name are stored in our secure database to deliver product updates and news. You may opt out at any time.</li><li>Usage &amp; Interaction Data: Anonymous, aggregated app-usage events (such as which features and filters are used) collected via Google Analytics for Firebase, to help us understand how the Application is used and improve it. This data is not linked to your name or email address.</li><li>Diagnostic Data: Crash reports and app-performance data (such as launch time and network request duration) collected via Firebase Crashlytics and Firebase Performance Monitoring, to help us detect and fix bugs and slowdowns.</li></ul>
+      <p>This privacy policy applies to the Benzina app (hereby referred to as "Application") for mobile devices, created by Allika Studio OÜ (hereby referred to as "Service Provider") and offered as a free service. The Application is provided "AS IS".</p>
+      <h2>Who is responsible for your data</h2>
+      <p>Allika Studio OÜ, registry code 17526321, Liivamäe tn 6-20, Kesklinna linnaosa, 10113 Tallinn, Estonia, is the controller of the personal data described in this policy. You can reach us at <a href="mailto:support@allikastudio.eu">support@allikastudio.eu</a>.</p>
+      <h2>Information the Application collects</h2>
+      <p>Technical data, collected automatically while you use the Application:</p>
+      <ul><li>Your device's Internet Protocol (IP) address</li><li>Device model, manufacturer, operating system and its version, screen resolution, and unique device identifiers</li><li>Which screens of the Application you open, when, and how long you spend in them</li></ul>
+      <p>Location data:</p>
+      <ul><li>Your device's location, used to find nearby fuel stations and car washes, to calculate distances to them, and to centre the map around you. Location is collected only while the Application is actively in use and is never tracked in the background. You can refuse or withdraw this permission at any time in your device settings; the Application continues to work without it, but nearby search and distances are unavailable.</li></ul>
+      <p>Account data, if you sign in with Google:</p>
+      <ul><li>Your Google account email address, display name, profile photo URL, and unique Google identifier.</li></ul>
+      <p>Data you create in the Application:</p>
+      <ul><li>Price submissions: when you submit a fuel price, your unique Google identifier and email address are linked to the submission for verification and data integrity.</li><li>Price reports: when you report an incorrect price, your unique Google identifier is recorded temporarily to prevent duplicate reports and spam. This record is purged once the price is updated or removed.</li><li>Preferences and progress: unlocked icon identifiers, promotional codes entered, default fuel type, and selected search radius.</li><li>Newsletter: if you opt in, your email address and display name are stored in our database so that we can send you product updates and news. You may opt out at any time.</li></ul>
+      <p>Data kept only on your device and never sent to us:</p>
+      <ul><li>App preferences such as theme, language, currency, icon size, and search radius.</li></ul>
+      <p>Analytics and diagnostics:</p>
+      <ul><li>Usage and interaction data: anonymous, aggregated events, such as which features and filters are used, collected through Google Analytics for Firebase so that we can understand how the Application is used and improve it. This data is not linked to your name or email address.</li><li>Diagnostic data: crash reports and app-performance data, such as launch time and network request duration, collected through Firebase Crashlytics and Firebase Performance Monitoring so that we can find and fix bugs and slowdowns.</li></ul>
+      <h2>How your location is used</h2>
+      <p>Your location is used to show fuel stations and car washes near you, to calculate distances to them, and to centre the map. Aggregated and anonymized location data also helps us understand how the Application is used and where it performs poorly. When the Application looks up prices or loads map tiles, those requests reach the third-party services listed below, and those services receive your device's IP address together with the area the request concerns.</p>
+      <h2>Camera Access</h2>
+      <p>The Application may ask for access to your device's camera so that you can scan fuel price boards instead of entering prices by hand. Photos taken for this purpose are processed entirely on your device using an on-device, open-source text recognition engine (Tesseract OCR). They are not uploaded to, transmitted to, or stored on the Service Provider's servers or any third-party server, and they are discarded immediately after the recognized prices are extracted. Camera access is used only when you actively choose the photo-scanning option.</p>
+      <h2>Fuel Price Forecasting</h2>
+      <p>The Application uses mathematical algorithms and data modeling to provide its Fuel Price Forecasting feature. The forecast is computed entirely on your device, from historical market trends and recent local prices. No personal data and no exact location coordinates are sent to external servers for this feature.</p>
       <h2>Third Party Access</h2>
-      <p>Only aggregated, anonymized data is periodically transmitted to external services to aid the Service Provider in improving the Application and their service.</p>
-      <p>The Application utilizes third-party services that have their own Privacy Policy about handling data:</p>
-      <ul><li>Google Sign-In (for account authentication)</li><li>Google Firebase Authentication</li><li>Google Firebase Firestore (database)</li><li>Google Firebase Cloud Functions</li><li>Google Analytics for Firebase</li><li>Firebase Crashlytics (crash reporting)</li><li>Firebase Performance Monitoring (app performance diagnostics)</li><li>MapLibre (maplibre.org) - open-source map rendering, uses OpenStreetMap map data</li><li>Fuel Price API (gas.didnt.work)</li><li>Fuelo (fuelo.net)</li><li>Public Fuel &amp; Wash Web Portals</li></ul>
+      <p>Apart from the services listed here, data leaves your device only in aggregated, anonymized form. Each of these services has its own privacy policy governing how it handles data.</p>
+      <p>Services that receive your account and usage data:</p>
+      <ul><li>Google Sign-In (account authentication)</li><li>Google Firebase Authentication</li><li>Google Firebase Firestore (database)</li><li>Google Firebase Cloud Functions</li><li>Google Analytics for Firebase</li><li>Firebase Crashlytics (crash reporting)</li><li>Firebase Performance Monitoring (app performance diagnostics)</li></ul>
+      <p>Services that receive your device's IP address, and an approximate location when you search for nearby prices or move the map:</p>
+      <ul><li>MapLibre (maplibre.org), open-source map rendering, using OpenStreetMap map data</li><li>Fuel price API (gas.didnt.work), fuel price lookup</li><li>Fuelo (fuelo.net), fuel price data</li><li>Websites of fuel and car-wash operators, for their publicly published price and opening-hours pages</li></ul>
+      <p>The services in the second group do not receive your name, email address, or account identifier.</p>
       <p>Text recognition for the camera price-scanning feature runs fully on-device using an open-source OCR engine (Tesseract) and does not involve any third-party service.</p>
-      <p>Data stored in Google Firebase Firestore and Authentication is located on servers in Warsaw, Poland (europe-central2 region).</p>
+      <h2>Where your data is stored</h2>
+      <p>Data stored in Google Firebase Firestore and Firebase Authentication is located on servers in Warsaw, Poland (the europe-central2 region), within the European Union.</p>
+      <h2>How long data is kept</h2>
+      <p>Account data is kept for as long as your account exists and is deleted when you delete the account. Price reports are purged once the reported price is updated or removed. Newsletter data is kept until you opt out. Fuel prices you have submitted are kept as part of the price database, but they are fully anonymized when your account is deleted, so that they can no longer be connected to you.</p>
+      <h2>Your Rights</h2>
+      <p>Under the General Data Protection Regulation you have the right to ask what personal data we hold about you, to have it corrected or erased, to restrict or object to its processing, and to receive a copy of it in a portable form. Where processing is based on your consent, which is the case for location access, camera access, and the newsletter, you may withdraw that consent at any time, without affecting anything done before you withdrew it. To exercise any of these rights, write to <a href="mailto:support@allikastudio.eu">support@allikastudio.eu</a>.</p>
+      <p>You also have the right to lodge a complaint with the Estonian Data Protection Inspectorate (Andmekaitse Inspektsioon), or with the supervisory authority of the country where you live.</p>
       <h2>Opt-Out and Account Deletion Rights</h2>
       <p>You can stop all collection of information by the Application easily by uninstalling it.</p>
       <p>Additionally, you have the right to permanently delete your account and personal data at any time through the in-app Account Settings.</p>
-      <p>If you have already uninstalled the Application or wish to request deletion outside of the Application, you can submit a deletion request via our web form or by contacting us via email at <a href="mailto:support.benzina@gmail.com">support.benzina@gmail.com</a>.</p>
+      <p>If you have already uninstalled the Application or wish to request deletion outside of the Application, you can submit a deletion request via our web form (<a href="https://forms.gle/5h9J3TaGb8AzrzzDA" target="_blank" rel="noopener">https://forms.gle/5h9J3TaGb8AzrzzDA</a>) or by contacting us via email at <a href="mailto:support@allikastudio.eu">support@allikastudio.eu</a> from the address linked to your account.</p>
       <p>Upon requesting account deletion, your Google authentication profile, email, name, and profile photo URL will be permanently purged. Any fuel prices you have submitted will remain in our database completely anonymized.</p>
+      <h2>Children</h2>
+      <p>The Application is not directed at children under the age of 13, and we do not knowingly collect personal data from them. If you believe that a child has provided us with personal data, write to <a href="mailto:support@allikastudio.eu">support@allikastudio.eu</a> and we will delete it.</p>
       <h2>Security</h2>
-      <p>The Service Provider is concerned about safeguarding the confidentiality of your information. Account data is secured through Google Firebase Authentication and stored in Google Firebase Firestore.</p>
-      <p>This privacy policy is effective as of 13-09-2026</p>
+      <p>The Service Provider is concerned about safeguarding the confidentiality of your information. Account data is secured through Google Firebase Authentication and stored in Google Firebase Firestore. No method of transmission or storage is completely secure, so absolute security cannot be guaranteed.</p>
+      <h2>Changes to This Policy</h2>
+      <p>This policy may change over time. The effective date below shows when it was last updated, and significant changes will be announced in the Application.</p>
       <h2>Contact Us</h2>
-      <p>If you have any questions regarding privacy while using the Application, please contact the Service Provider via email at <a href="mailto:support.benzina@gmail.com">support.benzina@gmail.com</a>.</p>
+      <p>If you have any questions regarding privacy while using the Application, please contact the Service Provider via email at <a href="mailto:support@allikastudio.eu">support@allikastudio.eu</a>.</p>
+      <p>This privacy policy is effective as of 20 September 2026.</p>
     </div>
   </section>
 </main>
