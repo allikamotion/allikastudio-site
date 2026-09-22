@@ -396,6 +396,22 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 })();
 
+// ---------- App Store badge: "coming soon" note while the iPhone app is in development ----------
+(function(){
+  var btn = document.querySelector('[data-appstore-soon]');
+  if (!btn) return;
+  var note = document.getElementById(btn.getAttribute('aria-controls'));
+  if (!note) return;
+  btn.addEventListener('click', function(){
+    if (!note.hidden) return;              // already on screen: leave it be
+    note.hidden = false;                   // role="status" -> screen readers announce it
+    btn.setAttribute('aria-expanded', 'true');
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ note.classList.add('is-shown'); });
+    });
+  });
+})();
+
 // ---------- brand link: smooth-scroll to top instead of a full reload when already on this page ----------
 (function(){
   var brand = document.querySelector('.site-header a.brand');
