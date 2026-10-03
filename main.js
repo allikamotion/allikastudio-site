@@ -46,7 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
           io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+      // threshold must stay 0. With a fraction (it used to be 0.1) a block
+      // taller than ~10x the viewport can never satisfy it: on a 667px-tall
+      // phone the Benzina privacy policy renders ~7600px tall, so at most
+      // ~8% of it is ever on screen, the observer never fires, and the whole
+      // document stays at opacity:0 — invisible on the phone, fine on a
+      // desktop. The rootMargin below already provides the "slightly into
+      // view" feel, so 0 costs nothing and cannot become unreachable.
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
     revealEls.forEach(el => io.observe(el));
 
     // Elements already in view on first paint (e.g. the hero) would
@@ -392,22 +399,6 @@ document.addEventListener('DOMContentLoaded', () => {
       wasScrolled = true;
       header.classList.add('scrolled');
       if (video) video.pause();
-    });
-  });
-})();
-
-// ---------- App Store badge: "coming soon" note while the iPhone app is in development ----------
-(function(){
-  var btn = document.querySelector('[data-appstore-soon]');
-  if (!btn) return;
-  var note = document.getElementById(btn.getAttribute('aria-controls'));
-  if (!note) return;
-  btn.addEventListener('click', function(){
-    if (!note.hidden) return;              // already on screen: leave it be
-    note.hidden = false;                   // role="status" -> screen readers announce it
-    btn.setAttribute('aria-expanded', 'true');
-    requestAnimationFrame(function(){
-      requestAnimationFrame(function(){ note.classList.add('is-shown'); });
     });
   });
 })();

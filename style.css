@@ -260,26 +260,7 @@ h1,h2,h3,p{ margin:0; }
 .store-badges a{ display:inline-flex; transition: opacity .3s var(--ease), transform .3s var(--ease); }
 .store-badges a:hover{ opacity:.82; transform: translateY(-1px); }
 .store-badges img{ height: 46px; width:auto; display:block; }
-/* App Store badge while the iPhone app is still in development: a button that
-   reveals a "coming soon" note instead of leaving the site. Looks and reacts
-   exactly like the Google Play link next to it. */
-.store-badges button{
-  display:inline-flex; padding:0; margin:0; border:0; background:none;
-  cursor:pointer; border-radius:8px; font:inherit; color:inherit;
-  transition: opacity .3s var(--ease), transform .3s var(--ease);
-}
-.store-badges button:hover{ opacity:.82; transform: translateY(-1px); }
-.store-badges a:focus-visible,
-.store-badges button:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; border-radius:8px; }
-.store-note{
-  margin:.9rem 0 0; max-width:46ch;
-  padding:.75rem 1rem; border:1px solid var(--line); border-radius:12px;
-  background:var(--bg-paper); color:var(--ink-soft);
-  font-size:.92rem; line-height:1.5;
-  opacity:0; transform:translateY(-4px);
-  transition: opacity .35s var(--ease), transform .35s var(--ease);
-}
-.store-note.is-shown{ opacity:1; transform:none; }
+.store-badges a:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; border-radius:8px; }
 
 /* ---------- project grid (listing) ---------- */
 .project-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 1.75rem; }
