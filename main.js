@@ -404,20 +404,26 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 // ---------- deep link to a card (#pumpkin and friends) ----------
-// The reveal animation starts every block 48px lower than its final spot, so the
-// browser's own jump to #hash lands about 48px off. Repeat the jump once the
-// animation has settled. The "did the visitor scroll?" check starts AFTER the
-// browser's own jump (at 500ms), otherwise that jump itself looks like the
-// visitor scrolling and the correction never runs.
+// Two things to get right when someone arrives from a video description:
+//  1) The reveal animation starts every block 48px lower than its final spot,
+//     so the browser's own jump to #hash lands about 48px off. Repeat the jump
+//     once the animation has settled. The "did the visitor scroll?" check starts
+//     AFTER that first jump, otherwise the jump itself looks like scrolling and
+//     the correction never runs.
+//  2) The header is sticky and its height is not fixed — the nav wraps on narrow
+//     windows, so it can be 67px or nearly 300px. Measure it and keep the card
+//     clear of it instead of trusting one hard-coded CSS value.
 (function(){
   if (!location.hash || location.hash === '#') return;
   var target;
   try { target = document.querySelector(location.hash); } catch (e) { return; }
   if (!target) return;
+  var header = document.querySelector('.site-header');
   setTimeout(function(){
     var settled = window.scrollY;
     setTimeout(function(){
       if (Math.abs(window.scrollY - settled) > 120) return;   // visitor took over
+      if (header) target.style.scrollMarginTop = (header.offsetHeight + 24) + 'px';
       target.scrollIntoView({ block: 'start', behavior: 'smooth' });
     }, 800);
   }, 500);
