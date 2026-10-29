@@ -403,6 +403,26 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 })();
 
+// ---------- deep link to a card (#pumpkin and friends) ----------
+// The reveal animation starts every block 48px lower than its final spot, so the
+// browser's own jump to #hash lands about 48px off. Repeat the jump once the
+// animation has settled. The "did the visitor scroll?" check starts AFTER the
+// browser's own jump (at 500ms), otherwise that jump itself looks like the
+// visitor scrolling and the correction never runs.
+(function(){
+  if (!location.hash || location.hash === '#') return;
+  var target;
+  try { target = document.querySelector(location.hash); } catch (e) { return; }
+  if (!target) return;
+  setTimeout(function(){
+    var settled = window.scrollY;
+    setTimeout(function(){
+      if (Math.abs(window.scrollY - settled) > 120) return;   // visitor took over
+      target.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }, 800);
+  }, 500);
+})();
+
 // ---------- brand link: smooth-scroll to top instead of a full reload when already on this page ----------
 (function(){
   var brand = document.querySelector('.site-header a.brand');
