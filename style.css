@@ -287,7 +287,7 @@ h1,h2,h3,p{ margin:0; }
 .file-item h3{ font-size:1.25rem; font-weight:600; margin:.35rem 0 .6rem; }
 .file-item p{ color: var(--ink-soft); font-size:.98rem; line-height:1.6; margin:0; max-width:64ch; }
 .file-item.is-empty{ background:none; border-style:dashed; }
-.file-note{ margin-top:.7rem !important; font-size:.88rem !important; color:var(--ink-faint) !important; }
+.file-note{ margin-top:.7rem !important; font-size:.88rem !important; color:var(--ink-soft) !important; }
 .file-note code{ font-family:var(--font-mono); font-size:.92em; background:var(--bg); border:1px solid var(--line); border-radius:4px; padding:.05em .35em; }
 .file-item.is-empty p{ margin:0; }
 .file-actions{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.1rem; }
@@ -433,6 +433,100 @@ h1,h2,h3,p{ margin:0; }
 }
 .media-card.is-square{ aspect-ratio:1/1; }
 .media-card.is-wide{ aspect-ratio:16/9; }
+
+/* ---------- project pages: several works on one page ---------- */
+/* The INFUR flipbook is 384x1024 — the shop's LED screen is far narrower than
+   a phone, so it needs its own ratio instead of being squeezed into 9:16. */
+.project-hero-media.is-tall{ width:min(300px,100%); aspect-ratio:3/8; margin-left:auto; margin-right:auto; }
+.portrait-row .project-hero-media.is-tall{ width:min(260px,100%); margin:0; }
+/* Две уличные съёмки стоят в одном ряду. Без явной ширины flex раздаёт им
+   остаток строки по длине подписи, и одно видео выходит на несколько
+   пикселей уже другого — подписи оказываются на разной высоте. */
+.portrait-row .media-figure{ width:min(320px,100%); }
+.portrait-row .media-figure .media-card.is-portrait{ width:100%; }
+
+/* ---------- кнопка звука поверх видео ----------
+   Автоплей со звуком браузеры не разрешают, поэтому единственный ролик с
+   музыкой стартует без него, а кнопка лежит прямо на видео: зритель видит
+   её сразу, а не только развернув во весь экран. Первые секунды она мягко
+   пульсирует, чтобы её заметили, потом замирает. */
+.project-hero-media.has-sound,
+.media-card.has-sound{ position:relative; }
+.sound-toggle{
+  position:absolute; right:1rem; bottom:1rem; z-index:2;
+  display:inline-flex; align-items:center; gap:.5rem;
+  font-family: var(--font-mono); font-size:.72rem; text-transform:uppercase;
+  letter-spacing:.04em; line-height:1;
+  padding:.6rem .95rem; border-radius:999px; border:1px solid rgba(255,255,255,.55);
+  background: rgba(10,10,10,.62); color:#fff; cursor:pointer;
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  transition: background .3s var(--ease), border-color .3s var(--ease);
+}
+.sound-toggle:hover{ background: rgba(10,10,10,.85); border-color:#fff; }
+.sound-toggle:focus-visible{ outline:2px solid #fff; outline-offset:3px; }
+.sound-toggle .ico{ width:1.05rem; height:1.05rem; fill:currentColor; stroke:currentColor; stroke-width:1.6; }
+.sound-toggle .ico path:first-child{ stroke:none; }
+.sound-toggle .ico-on,
+.sound-toggle .lbl-on{ display:none; }
+.sound-toggle.is-on .ico-off,
+.sound-toggle.is-on .lbl-off{ display:none; }
+.sound-toggle.is-on .ico-on{ display:inline-block; }
+.sound-toggle.is-on .lbl-on{ display:inline; }
+@keyframes sound-hint{
+  0%,100%{ box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+  50%{ box-shadow: 0 0 0 7px rgba(255,255,255,.22); }
+}
+.sound-toggle.is-hint{ animation: sound-hint 1.8s var(--ease) 3; }
+@media (prefers-reduced-motion: reduce){
+  .sound-toggle.is-hint{ animation:none; }
+}
+/* В маленьких карточках кнопка занимала бы заметную долю кадра. */
+.media-card.has-sound .sound-toggle{ right:.6rem; bottom:.6rem; padding:.5rem .75rem; font-size:.66rem; gap:.4rem; }
+.media-card.has-sound .sound-toggle .ico{ width:.9rem; height:.9rem; }
+@media (max-width: 640px){
+  .sound-toggle{ right:.6rem; bottom:.6rem; padding:.5rem .75rem; font-size:.66rem; }
+}
+
+.work-title{
+  font-family: var(--font-body); font-weight:600;
+  font-size: clamp(1.15rem,2.6vw,1.5rem); line-height:1.3;
+  margin: 0 0 .35rem; max-width: 46ch;
+}
+.work-meta{
+  font-family: var(--font-mono); font-size:.72rem; text-transform:uppercase;
+  letter-spacing:.04em; color: var(--ink-soft); margin: 0 0 1.75rem;
+}
+.media-figure{ margin:0; }
+.media-figure figcaption{
+  margin-top:.7rem; font-size:.85rem; line-height:1.5;
+  color: var(--ink-soft); max-width:40ch;
+}
+.credits-head{
+  font-family: var(--font-mono); font-size:.72rem; text-transform:uppercase;
+  letter-spacing:.04em; color: var(--ink-soft);
+  /* Сверху больше, чем расстояние между абзацами (1.5rem), иначе строка
+     CREDITS читается как ещё один абзац, а не как начало нового блока;
+     снизу меньше, чтобы заголовок держался за свой список. */
+  margin: 2.75rem 0 .45rem;
+}
+.credits{
+  color: var(--ink-soft); font-size:.92rem; line-height:1.6;
+  margin: 0 0 .35rem; max-width: 64ch;
+}
+.prose + .credits{ margin-top:1.5rem; }
+
+/* ---------- projects list: show six, reveal the rest ---------- */
+.project-card.is-extra{ display:none; }
+.project-grid.is-expanded .project-card.is-extra{ display:block; }
+.more-work{ display:flex; justify-content:center; margin-top:2.5rem; }
+.more-work button{
+  font-family: var(--font-mono); font-size:.78rem; letter-spacing:.03em;
+  padding:.75rem 1.6rem; border-radius:999px;
+  border:1px solid var(--ink); background:none; color: var(--ink);
+  cursor:pointer; transition: background .3s var(--ease), color .3s var(--ease);
+}
+.more-work button:hover{ background: var(--ink); color: var(--bg); }
+.more-work button:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
 
 @media (max-width: 640px){
   .project-media-secondary.grid-2col{ grid-template-columns: 1fr; }

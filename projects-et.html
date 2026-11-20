@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Projektid — Allika Studio</title>
   <meta name="description" content="Allika Studio valitud liikuva disaini, videomontaaži ja mobiilirakenduste arenduse projektid.">
-<link rel="stylesheet" href="style.css?v=58">
+<link rel="stylesheet" href="style.css?v=60">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -43,7 +43,20 @@
   </section>
 
   <section class="section" style="border-top:none; padding-top:0;">
-    <div class="project-grid">
+    <div class="project-grid" id="project-grid">
+      <a class="project-card" href="projects-infur-et.html" data-reveal>
+        <!-- Флипбук вертикальный (384x1024), а карточка в сетке 4:3: центральная
+             полоса кадра -- это крупный план рукава. Поэтому у карточки своя
+             обрезка, где видно вещь, слово и стрелку. -->
+        <div class="thumb" data-hover-video style="background-image:url('infur-flipbook-card.jpg')"><video muted loop playsinline preload="none" poster="infur-flipbook-card.jpg"><source src="infur-flipbook.mp4" type="video/mp4"></video></div>
+        <span class="cat">Brändi identiteet</span>
+        <h3>Infur</h3>
+      </a>
+      <a class="project-card" href="projects-turning-room-et.html" data-reveal>
+        <div class="thumb" data-hover-video style="background-image:url('turning-room-card.jpg')"><video muted loop playsinline preload="none" poster="turning-room-card.jpg"><source src="turning-room.mp4" type="video/mp4"></video></div>
+        <span class="cat">Animatsioon</span>
+        <h3>The Turning Room</h3>
+      </a>
       <a class="project-card" href="projects-benzina-fuel-prices-map-et.html" data-reveal>
         <div class="thumb" style="background-image:url('benzina-1-web.jpg')"></div>
         <span class="cat">Mobiilirakendus</span>
@@ -53,11 +66,6 @@
         <div class="thumb" data-hover-video style="background-image:url('allika-studio-1-poster.jpg')"><video muted loop playsinline preload="none" poster="allika-studio-1-poster.jpg"><source src="allika-studio-1.mp4?v=2" type="video/mp4"></video></div>
         <span class="cat">Video &amp; pilt</span>
         <h3>Allika Studio</h3>
-      </a>
-      <a class="project-card" href="projects-infur-et.html" data-reveal>
-        <div class="thumb" data-hover-video style="background-image:url('infur-web.jpg')"><video muted loop playsinline preload="none" poster="infur-web.jpg"><source src="infur-1.mp4" type="video/mp4"></video></div>
-        <span class="cat">Brändi identiteet</span>
-        <h3>Infur</h3>
       </a>
       <a class="project-card" href="projects-historical-intro-et.html" data-reveal>
         <div class="thumb" data-hover-video style="background-image:url('storytelling-1-poster.jpg')"><video muted loop playsinline preload="none" poster="storytelling-1-poster.jpg"><source src="storytelling-1.mp4?v=3" type="video/mp4"></video></div>
@@ -69,11 +77,16 @@
         <span class="cat">Animatsioon</span>
         <h3>Sketch to Render</h3>
       </a>
-      <a class="project-card" href="projects-season-et.html" data-reveal>
+      <a class="project-card is-extra" href="projects-season-et.html" data-reveal>
         <div class="thumb" data-hover-video style="background-image:url('season-poster.jpg')"><video muted loop playsinline preload="none" poster="season-poster.jpg"><source src="javer-1.mp4?v=2" type="video/mp4"></video></div>
         <span class="cat">Brändi identiteet</span>
         <h3>Javer Footwear Ad</h3>
       </a>
+    </div>
+    <!-- Six cards fill the grid evenly; anything beyond that waits behind the
+         button so the layout does not end on a lonely half-row. -->
+    <div class="more-work" data-reveal>
+      <button type="button" data-more-work aria-expanded="false" aria-controls="project-grid">Näita rohkem töid</button>
     </div>
   </section>
 
@@ -93,6 +106,6 @@
   </div>
 </footer>
 
-<script src="main.js?v=58"></script>
+<script src="main.js?v=60"></script>
 </body>
 </html>

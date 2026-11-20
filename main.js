@@ -403,6 +403,27 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 })();
 
+// ---------- projects list: reveal the cards beyond the first six ----------
+// Six cards fill the grid in whole rows. The rest start hidden so the page does
+// not end on a half-empty row, and the button brings them in with the same
+// fade-in the other blocks use.
+(function(){
+  var btn = document.querySelector('[data-more-work]');
+  if (!btn) return;
+  var grid = document.getElementById(btn.getAttribute('aria-controls'));
+  if (!grid) return;
+  btn.addEventListener('click', function(){
+    grid.classList.add('is-expanded');
+    btn.setAttribute('aria-expanded', 'true');
+    // the hidden cards never met the reveal observer — show them straight away
+    grid.querySelectorAll('.project-card.is-extra').forEach(function(card){
+      card.classList.add('is-visible');
+    });
+    var wrap = btn.parentElement;
+    if (wrap) wrap.parentElement.removeChild(wrap);
+  });
+})();
+
 // ---------- deep link to a card (#pumpkin and friends) ----------
 // Two things to get right when someone arrives from a video description:
 //  1) The reveal animation starts every block 48px lower than its final spot,
@@ -495,4 +516,67 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.25 });
   wraps.forEach(function(wrap){ io.observe(wrap); });
+})();
+
+// ---------- звук у ролика с музыкой ----------
+// Автоплей браузеры разрешают только без звука, поэтому видео стартует
+// заглушённым, а зритель включает звук кнопкой поверх кадра. Кнопка живёт
+// в разметке (обе подписи -- текстовые узлы), чтобы эстонская сборка
+// переводила её так же, как остальной текст.
+(function(){
+  var btns = document.querySelectorAll('[data-sound-toggle]');
+  if (!btns.length) return;
+
+  btns.forEach(function(btn){
+    var wrap = btn.parentElement;
+    var video = wrap && wrap.querySelector('video');
+    // Без дорожки звука кнопка бессмысленна: убираем, чтобы не обманывать.
+    if (!video) { if (btn.parentNode) btn.parentNode.removeChild(btn); return; }
+
+    btn.addEventListener('click', function(e){
+      // Ролик лежит внутри ссылки только в сетке проектов; здесь -- нет,
+      // но клик всё равно гасим, чтобы он не дошёл до обработчиков обёртки.
+      e.preventDefault();
+      e.stopPropagation();
+      btn.classList.remove('is-hint');
+      var turningOn = video.muted;
+      // На странице проекта роликов может быть несколько, и все они играют
+      // одновременно. Звук держим ровно у одного: включая его здесь, гасим
+      // остальные и возвращаем их кнопки в исходное состояние.
+      if (turningOn) {
+        btns.forEach(function(other){
+          if (other === btn) return;
+          var ov = other.parentElement && other.parentElement.querySelector('video');
+          if (ov && !ov.muted) ov.muted = true;
+          other.classList.remove('is-on');
+          other.setAttribute('aria-pressed', 'false');
+        });
+      }
+      video.muted = !turningOn;
+      video.volume = 1;
+      btn.classList.toggle('is-on', !video.muted);
+      btn.setAttribute('aria-pressed', video.muted ? 'false' : 'true');
+      // Если автозапуск был запрещён, звук включают как раз жестом --
+      // этим же жестом и запускаем.
+      if (video.paused) { var p = video.play(); if (p !== undefined) p.catch(function(){}); }
+    });
+
+    // Подсказка: кнопка коротко пульсирует, когда ролик попал в кадр, и
+    // замолкает, как только зритель что-то сделал.
+    var hinted = false;
+    function hint(){
+      if (hinted) return;
+      hinted = true;
+      btn.classList.add('is-hint');
+      setTimeout(function(){ btn.classList.remove('is-hint'); }, 6000);
+    }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ if (en.isIntersecting) { hint(); io.disconnect(); } });
+      }, { threshold: 0.4 });
+      io.observe(wrap);
+    } else {
+      hint();
+    }
+  });
 })();

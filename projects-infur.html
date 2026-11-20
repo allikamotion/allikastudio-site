@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Infur — Allika Studio</title>
-  <meta name="description" content="Animated promotional video for a local outerwear and accessories retailer.">
-<link rel="stylesheet" href="style.css?v=58">
+  <meta name="description" content="INFUR — an animated flipbook for the LED screen in a fashion store window, plus an earlier promotional video.">
+<link rel="stylesheet" href="style.css?v=60">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -14,7 +14,7 @@
   <meta property="og:site_name" content="Allika Studio">
   <meta property="og:locale" content="en_US">
   <meta property="og:title" content="Infur — Allika Studio">
-  <meta property="og:description" content="Animated promotional video for a local outerwear and accessories retailer.">
+  <meta property="og:description" content="INFUR — an animated flipbook for the LED screen in a fashion store window, plus an earlier promotional video.">
   <meta property="og:url" content="https://allikastudio.eu/projects-infur.html">
   <meta property="og:image" content="https://allikastudio.eu/og-infur.jpg">
   <meta property="og:image:width" content="1200">
@@ -43,11 +43,49 @@
   </section>
 
   <section class="section" style="border-top:none; padding-top:0;">
-    <div class="project-hero-media is-portrait" data-reveal data-autoplay-video style="background-image:url('infur-web.jpg')"><video muted loop playsinline preload="metadata" poster="infur-web.jpg"><source src="infur-1.mp4" type="video/mp4"></video></div>
-    <p class="prose" data-reveal>
-      
-      Animated promotional video created for a local outerwear and accessories retailer.
-    </p>
+    <h2 class="work-title" data-reveal>INFUR — Flipbook for an In-Store LED Screen</h2>
+    <p class="work-meta" data-reveal>Digital signage · Motion design · Retail</p>
+
+    <div class="portrait-row">
+      <!-- The flipbook is 384x1024 — the native shape of the shop's LED screen,
+           much narrower than a phone. It gets its own .is-tall ratio so it is
+           not stretched into the 9:16 the other portrait clips use. -->
+      <div class="project-hero-media is-tall" data-reveal data-autoplay-video style="background-image:url('infur-flipbook-poster.jpg')"><video muted loop playsinline preload="metadata" poster="infur-flipbook-poster.jpg"><source src="infur-flipbook.mp4" type="video/mp4"></video></div>
+      <!-- The same LED ad runs in two shops. Both street clips sit in the same
+           row as the flipbook itself, so the page reads: here is the file, and
+           here it is on two real screens. The second shop is not named — it is
+           the client's other location, not a separate brand to credit. -->
+      <div class="project-media-secondary">
+        <figure class="media-figure" data-reveal>
+          <div class="media-card is-portrait" data-autoplay-video style="background-image:url('infur-window-poster.jpg')"><video muted loop playsinline preload="metadata" poster="infur-window-poster.jpg"><source src="infur-window.mp4" type="video/mp4"></video></div>
+          <figcaption>The flipbook live in the INFUR store window, filmed in daylight.</figcaption>
+        </figure>
+        <figure class="media-figure" data-reveal>
+          <div class="media-card is-portrait" data-autoplay-video style="background-image:url('infur-screen-2-poster.jpg')"><video muted loop playsinline preload="metadata" poster="infur-screen-2-poster.jpg"><source src="infur-screen-2.mp4" type="video/mp4"></video></div>
+          <figcaption>The same flipbook on the second store's screen.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <p class="prose" data-reveal>An animated flipbook for the LED screen in the window of INFUR, a fashion store. The video works like a stylist's sketchbook: the pages turn one by one, and each page presents one piece from the collection, a coat, a jacket or a pair of jeans. A short handwritten word and a hand-drawn arrow appear on the page as if written live, pointing at the garment and giving it a character: Fresh, Wild, Soft.</p>
+
+    <p class="prose" data-reveal>The lines keep a subtle frame-by-frame "boil", so the animation feels personal and handmade rather than corporate. The idea was to present the products in a light, editorial way: no heavy sales graphics, just the garment, one word and a gesture that guides the eye.</p>
+
+    <p class="prose" data-reveal>On location: the street footage, filmed on a phone, shows the flipbook running in the store window during the day.</p>
+
+    <p class="credits" data-reveal>My role: concept, art direction, AI image and video generation, motion design, handwritten type animation, technical preparation for the LED display</p>
+    <p class="credits" data-reveal>Tools: After Effects, Photoshop, AI image &amp; video generation</p>
+  </section>
+
+  <section class="section">
+    <h2 class="work-title" data-reveal>Earlier work</h2>
+    <!-- Kept inside .portrait-row so this clip starts at the same left edge as
+         the flipbook above; on its own, .project-hero-media centres itself and
+         the page would alternate between left-aligned and centred media. -->
+    <div class="portrait-row">
+      <div class="project-hero-media is-portrait" data-reveal data-autoplay-video style="background-image:url('infur-web.jpg')"><video muted loop playsinline preload="metadata" poster="infur-web.jpg"><source src="infur-1.mp4" type="video/mp4"></video></div>
+    </div>
+    <p class="prose" data-reveal>Animated promotional video created for a local outerwear and accessories retailer.</p>
   </section>
 </main>
 <footer class="site-footer">
@@ -59,6 +97,6 @@
     <div class="bottom"><span>© 2026 Allika Studio OÜ</span><span>Reg. 17526321 · Tallinn, Estonia</span><span class="footer-mail"><a href="mailto:support@allikastudio.eu">support@allikastudio.eu</a></span><span class="legal-links"><a href="support.html">Support</a> · <a href="legal-terms-of-use.html">Terms of Use</a> · <a href="legal-privacy-policy.html">Privacy Policy</a></span></div>
   </div>
 </footer>
-<script src="main.js?v=58"></script>
+<script src="main.js?v=60"></script>
 </body>
 </html>
