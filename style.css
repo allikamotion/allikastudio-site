@@ -259,8 +259,21 @@ h1,h2,h3,p{ margin:0; }
 .store-badges{ display:flex; flex-wrap:wrap; align-items:center; gap:1rem; margin: 1.75rem 0 .5rem; }
 .store-badges a{ display:inline-flex; transition: opacity .3s var(--ease), transform .3s var(--ease); }
 .store-badges a:hover{ opacity:.82; transform: translateY(-1px); }
-.store-badges img{ height: 46px; width:auto; display:block; }
+/* Высоту задаёт ссылка, а не картинка: если у одного магазина бейдж другой
+   пропорции или другого размера, оба всё равно встанут в одну высоту. */
+.store-badges a{ height: 46px; }
+.store-badges img{ height: 100%; width:auto; object-fit:contain; display:block; }
 .store-badges a:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; border-radius:8px; }
+
+/* ---------- ряд скриншотов приложения ---------- */
+.shots-row{ display:flex; flex-wrap:wrap; gap:1.75rem; align-items:flex-start; }
+.shot{ margin:0; flex:1 1 220px; max-width:330px; }
+.shot img{ width:100%; height:auto; display:block; border-radius:14px; }
+.shot figcaption{ margin-top:.7rem; font-size:.85rem; line-height:1.5; color: var(--ink-soft); }
+@media (max-width: 640px){
+  .shots-row{ gap:2rem; }
+  .shot{ flex:1 1 100%; max-width:100%; }
+}
 
 /* ---------- AnD Reality: channel page ---------- */
 .channel-mark{ width:100%; max-width:300px; height:auto; display:block; }
@@ -348,8 +361,19 @@ h1,h2,h3,p{ margin:0; }
 }
 .hero-phone{ display:flex; justify-content:center; opacity:1; }
 .hero-phone img{ width:100%; max-width: 340px; height:auto; display:block; }
+/* Тот же двухколоночный макет для блоков на странице Apps, где приложений
+   несколько и ни одно из них не является заголовком страницы. */
+.app-block{
+  display:grid; grid-template-columns: 1fr minmax(240px,320px);
+  gap: clamp(2rem,5vw,3.5rem); align-items:start;
+}
+/* На общей странице приложений текста в блоке меньше, чем на отдельной
+   странице, поэтому экран телефона чуть мельче -- иначе под текстом
+   остаётся большая пустая колонка. */
+.app-block .hero-phone img{ max-width: 290px; }
 @media (max-width: 800px){
-  .page-hero.with-phone{ grid-template-columns: 1fr; }
+  .page-hero.with-phone,
+  .app-block{ grid-template-columns: 1fr; }
   .hero-phone{ order:-1; margin-bottom: 1rem; }
   .hero-phone img{ max-width: 190px; margin:0 auto; }
 }
